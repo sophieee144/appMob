@@ -1,3 +1,4 @@
+import 'package:example/screens/tp5.dart';
 import 'package:flutter/material.dart';
 
 class level2 extends StatefulWidget {
@@ -8,16 +9,9 @@ class level2 extends StatefulWidget {
 }
 
 class _level2State extends State<level2> {
-  @override
-  Widget build(BuildContext context) {
-    int doubleToInt(double val) {
-      return val.toInt();
-    }
+  late List<List<TextEditingController>> sudokuControllors;
 
-    List<List<TextEditingController>> sudokuControllors = List.generate(
-        9, (_) => List.generate(9, (_) => TextEditingController()));
-    List<List<bool>> sudokuValid =
-        List.generate(9, (_) => List.generate(9, (_) => true));
+  restart() {
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
         sudokuControllors[i][j].text = '';
@@ -26,52 +20,40 @@ class _level2State extends State<level2> {
     sudokuControllors[0][0].text = '5';
     sudokuControllors[0][1].text = '6';
     sudokuControllors[1][1].text = '7';
-    List<String> numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', ''];
-    List<List<Color>> sudokuColor =
-        List.generate(9, (_) => List.generate(9, (_) => Colors.black));
-    void changeColorRed(i, j) {
-      setState(() {
-        sudokuColor[i][j] = Colors.red;
-      });
-    }
+  }
 
+  late List<String> numbers;
+  late List<List<Color>> sudokuColor;
+  @override
+  void initState() {
+    sudokuControllors = List.generate(
+        9, (_) => List.generate(9, (_) => TextEditingController()));
+
+    restart();
+    numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', ''];
+    sudokuColor =
+        List.generate(9, (_) => List.generate(9, (_) => Colors.black));
+
+    super.initState();
+  }
+
+  int doubleToInt(double val) {
+    return val.toInt();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.indigoAccent,
-        centerTitle: true,
-        title: const Text(
-          'Level2',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 22, color: Colors.black),
+        appBar: AppBar(
+          backgroundColor: Colors.indigoAccent,
+          centerTitle: true,
+          title: const Text(
+            'Level 2',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
+          ),
         ),
-      ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 30,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              // Timer button
-              ElevatedButton(
-                onPressed: () {
-                  // Implement timer functionality here
-                },
-                child: const Text('Timer'),
-              ),
-              // Check button
-              ElevatedButton(
-                onPressed: () {
-                  // Implement check functionality here
-                },
-                child: const Text('Check'),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 30,
-          ),
+        body: Column(children: [
           Expanded(
             child: GridView.builder(
               itemCount: 81,
@@ -146,8 +128,63 @@ class _level2State extends State<level2> {
               ),
             ),
           ),
-        ],
-      ),
-    );
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            ElevatedButton(
+                onPressed: () {},
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.indigo),
+                  padding: MaterialStateProperty.all<EdgeInsets>(
+                    const EdgeInsets.symmetric(
+                        horizontal: 35.0,
+                        vertical: 15.0), // Adjust the padding values here
+                  ),
+                ),
+                child: const Text('Start')),
+            ElevatedButton(
+                onPressed: () {},
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.indigo),
+                  padding: MaterialStateProperty.all<EdgeInsets>(
+                    const EdgeInsets.symmetric(
+                        horizontal: 35.0,
+                        vertical: 15.0), // Adjust the padding values here
+                  ),
+                ),
+                child: const Text('Timer')),
+            ElevatedButton(
+                onPressed: () {
+                  restart();
+                },
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.indigo),
+                  padding: MaterialStateProperty.all<EdgeInsets>(
+                    const EdgeInsets.symmetric(
+                        horizontal: 35.0,
+                        vertical: 15.0), // Adjust the padding values here
+                  ),
+                ),
+                child: const Text('Restart'))
+          ]),
+          const SizedBox(height: 30),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const TP5()));
+              },
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.indigo),
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                  const EdgeInsets.symmetric(
+                      horizontal: 35.0,
+                      vertical: 15.0), // Adjust the padding values here
+                ),
+              ),
+              child: const Text('Return to Level 1')),
+          const SizedBox(height: 70)
+        ]));
   }
 }

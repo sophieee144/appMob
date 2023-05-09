@@ -1,5 +1,6 @@
 import 'package:example/screens/tp5.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class level2 extends StatefulWidget {
   const level2({super.key});
@@ -39,6 +40,36 @@ class _level2State extends State<level2> {
 
   int doubleToInt(double val) {
     return val.toInt();
+  }
+
+  int timerSeconds = 0;
+  Timer? timer;
+
+  void startTimer() {
+    // Check if a timer is already running, cancel it before starting a new one
+    if (timer != null && timer!.isActive) {
+      timer!.cancel();
+    }
+
+    // Start the timer
+    timerSeconds = 0;
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      setState(() {
+        timerSeconds++;
+      });
+    });
+  }
+
+  void restartTimer() {
+    // Cancel the timer if it is running
+    if (timer != null && timer!.isActive) {
+      timer!.cancel();
+    }
+
+    // Reset the timerSeconds value to 0
+    setState(() {
+      timerSeconds = 0;
+    });
   }
 
   @override
@@ -142,20 +173,9 @@ class _level2State extends State<level2> {
                 ),
                 child: const Text('Start')),
             ElevatedButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.indigo),
-                  padding: MaterialStateProperty.all<EdgeInsets>(
-                    const EdgeInsets.symmetric(
-                        horizontal: 35.0,
-                        vertical: 15.0), // Adjust the padding values here
-                  ),
-                ),
-                child: const Text('Timer')),
-            ElevatedButton(
                 onPressed: () {
                   restart();
+                  restartTimer();
                 },
                 style: ButtonStyle(
                   backgroundColor:
@@ -166,7 +186,20 @@ class _level2State extends State<level2> {
                         vertical: 15.0), // Adjust the padding values here
                   ),
                 ),
-                child: const Text('Restart'))
+                child: const Text('Restart')),
+            ElevatedButton(
+                onPressed: startTimer,
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.indigo),
+                  padding: MaterialStateProperty.all<EdgeInsets>(
+                    const EdgeInsets.symmetric(
+                        horizontal: 35.0,
+                        vertical: 15.0), // Adjust the padding values here
+                  ),
+                ),
+                child: const Text('Timer')),
+            Text('Timer: $timerSeconds seconds'),
           ]),
           const SizedBox(height: 30),
           ElevatedButton(
@@ -183,7 +216,7 @@ class _level2State extends State<level2> {
                       vertical: 15.0), // Adjust the padding values here
                 ),
               ),
-              child: const Text('Return to Level 1')),
+              child: const Text('Return to evel 1')),
           const SizedBox(height: 70)
         ]));
   }

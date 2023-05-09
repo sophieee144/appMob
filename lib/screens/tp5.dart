@@ -1,5 +1,6 @@
 import 'package:example/screens/tp5/level2.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class TP5 extends StatefulWidget {
   const TP5({Key? key});
@@ -45,6 +46,36 @@ class _TP5State extends State<TP5> {
 
   int doubleToInt(double val) {
     return val.toInt();
+  }
+
+  int timerSeconds = 0;
+  Timer? timer;
+
+  void startTimer() {
+    // Check if a timer is already running, cancel it before starting a new one
+    if (timer != null && timer!.isActive) {
+      timer!.cancel();
+    }
+
+    // Start the timer
+    timerSeconds = 0;
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
+      setState(() {
+        timerSeconds++;
+      });
+    });
+  }
+
+  void restartTimer() {
+    // Cancel the timer if it is running
+    if (timer != null && timer!.isActive) {
+      timer!.cancel();
+    }
+
+    // Reset the timerSeconds value to 0
+    setState(() {
+      timerSeconds = 0;
+    });
   }
 
   @override
@@ -144,7 +175,7 @@ class _TP5State extends State<TP5> {
                 ),
                 child: const Text('Start')),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: startTimer,
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.indigo),
@@ -155,9 +186,11 @@ class _TP5State extends State<TP5> {
                   ),
                 ),
                 child: const Text('Timer')),
+            Text('Timer: $timerSeconds seconds'),
             ElevatedButton(
                 onPressed: () {
                   restart();
+                  restartTimer();
                 },
                 style: ButtonStyle(
                   backgroundColor:
@@ -168,7 +201,7 @@ class _TP5State extends State<TP5> {
                         vertical: 15.0), // Adjust the padding values here
                   ),
                 ),
-                child: const Text('Restart'))
+                child: const Text('Restart')),
           ]),
           const SizedBox(height: 30),
           ElevatedButton(

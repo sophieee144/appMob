@@ -30,8 +30,11 @@ migrate_working_dir/
 .packages
 .pub-cache/
 .pub/
-/build/
-
+/build/app
+/build/kotlin
+/build/.last_build_id
+/build/.last_build_id
+/build/ba8a698d8fb016c18b8433a7ee9971c9
 # Symbolication related
 app.*.symbols
 

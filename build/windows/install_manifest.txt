@@ -1,0 +1,15 @@
+C:/src/example/build/windows/runner/Debug/data/icudtl.dat
+C:/src/example/build/windows/runner/Debug/flutter_windows.dll
+C:/src/example/build/windows/runner/Debug/data/flutter_assets/AssetManifest.json
+C:/src/example/build/windows/runner/Debug/data/flutter_assets/FontManifest.json
+C:/src/example/build/windows/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+C:/src/example/build/windows/runner/Debug/data/flutter_assets/images/chipss.jpg
+C:/src/example/build/windows/runner/Debug/data/flutter_assets/images/manti.jpg
+C:/src/example/build/windows/runner/Debug/data/flutter_assets/images/minitarte.jpg
+C:/src/example/build/windows/runner/Debug/data/flutter_assets/images/pancake.jpg
+C:/src/example/build/windows/runner/Debug/data/flutter_assets/images/pizza.jpg
+C:/src/example/build/windows/runner/Debug/data/flutter_assets/images/tarte.jpg
+C:/src/example/build/windows/runner/Debug/data/flutter_assets/kernel_blob.bin
+C:/src/example/build/windows/runner/Debug/data/flutter_assets/NOTICES.Z
+C:/src/example/build/windows/runner/Debug/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
+C:/src/example/build/windows/runner/Debug/data/flutter_assets/shaders/ink_sparkle.frag

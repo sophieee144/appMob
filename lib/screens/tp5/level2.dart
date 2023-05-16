@@ -2,14 +2,14 @@ import 'package:example/screens/tp5.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-class level2 extends StatefulWidget {
-  const level2({super.key});
+class Level2 extends StatefulWidget {
+  const Level2({super.key});
 
   @override
-  State<level2> createState() => _level2State();
+  State<Level2> createState() => _Level2State();
 }
 
-class _level2State extends State<level2> {
+class _Level2State extends State<Level2> {
   late List<List<TextEditingController>> sudokuControllors;
 
   restart() {
@@ -53,7 +53,7 @@ class _level2State extends State<level2> {
 
     // Start the timer
     timerSeconds = 0;
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       setState(() {
         timerSeconds++;
       });
@@ -187,37 +187,47 @@ class _level2State extends State<level2> {
                   ),
                 ),
                 child: const Text('Restart')),
-            ElevatedButton(
-                onPressed: startTimer,
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.indigo),
-                  padding: MaterialStateProperty.all<EdgeInsets>(
-                    const EdgeInsets.symmetric(
-                        horizontal: 35.0,
-                        vertical: 15.0), // Adjust the padding values here
-                  ),
-                ),
-                child: const Text('Timer')),
-            Text('Timer: $timerSeconds seconds'),
           ]),
-          const SizedBox(height: 30),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const TP5()));
-              },
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.indigo),
-                padding: MaterialStateProperty.all<EdgeInsets>(
-                  const EdgeInsets.symmetric(
-                      horizontal: 35.0,
-                      vertical: 15.0), // Adjust the padding values here
-                ),
+          const SizedBox(height: 40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                      onPressed: startTimer,
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.indigo),
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                          const EdgeInsets.symmetric(
+                              horizontal: 35.0,
+                              vertical: 15.0), // Adjust the padding values here
+                        ),
+                      ),
+                      child: const Text('Timer')),
+                  Text('$timerSeconds seconds'),
+                ],
               ),
-              child: const Text('Return to evel 1')),
-          const SizedBox(height: 70)
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const TP5()));
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.indigo),
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.symmetric(
+                          horizontal: 35.0,
+                          vertical: 15.0), // Adjust the padding values here
+                    ),
+                  ),
+                  child: const Text('Return to Level 1')),
+            ],
+          ),
+          const SizedBox(height: 50)
         ]));
   }
 }

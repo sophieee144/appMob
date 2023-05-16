@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
       body: GridView.builder(
         itemCount: 6,
         gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (context, i) => InkWell(
           onTap: () {
             switch (i) {
@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
               case 5:
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const TP6()),
+                  MaterialPageRoute(builder: (context) => TP6()),
                 );
                 break;
               default:

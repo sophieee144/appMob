@@ -10,7 +10,9 @@ class TP5 extends StatefulWidget {
 }
 
 class _TP5State extends State<TP5> {
-  late List<List<TextEditingController>> sudokuControllors;
+  
+  List<List<TextEditingController>> sudokuControllors = List.generate(
+        4, (_) => List.generate(4, (_) => TextEditingController()));
 
   restart() {
     for (var i = 0; i < 4; i++) {
@@ -31,15 +33,20 @@ class _TP5State extends State<TP5> {
 
   late List<String> numbers;
   late List<List<Color>> sudokuColor;
+  bool inputEnabled = false;
   @override
   void initState() {
-    sudokuControllors = List.generate(
-        4, (_) => List.generate(4, (_) => TextEditingController()));
-
+    List<List<bool>> sudokuValid =
+        List.generate(9, (_) => List.generate(9, (_) => true));
+  for (var i = 0; i < 4; i++) {
+    for (var j = 0; j < 4; j++) {
+      sudokuValid[i][j]=(sudokuControllors[doubleToInt(i / 4)][i % 4].text == "") && inputEnabled;
+    }
+    
+  }
+  sudokuColor=  List.generate(4, (_) => List.generate(4, (_) => Colors.red));
     restart();
     numbers = ['1', '2', '3', '4', ''];
-    sudokuColor =
-        List.generate(4, (_) => List.generate(4, (_) => Colors.black));
 
     super.initState();
   }
@@ -107,6 +114,7 @@ class _TP5State extends State<TP5> {
                                   color: Colors.black,
                                   width: (i % 4 == 1) ? 5 : 1))),
                       child: Center(
+
                           child: TextField(
                               onChanged: (value) {
                                 if (!numbers.contains(value)) {
@@ -149,21 +157,17 @@ class _TP5State extends State<TP5> {
                                               "")
                                           ? FontWeight.bold
                                           : FontWeight.w400,
-                                  color: sudokuColor[doubleToInt(i / 4)]
-                                      [i % 4]),
+                                  ),
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 counterText: '',
                               ),
                               textAlign: TextAlign.center,
                               keyboardType: TextInputType.number,
-                              enabled: sudokuControllors[doubleToInt(i / 4)]
-                                          [i % 4]
-                                      .text ==
-                                  ""))))),
+                              enabled: sudokuControllors[doubleToInt(i / 4)][i % 4].text == "",),),),),),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             ElevatedButton(
-                onPressed: () {},
+                onPressed:startTimer,
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.indigo),
@@ -174,19 +178,6 @@ class _TP5State extends State<TP5> {
                   ),
                 ),
                 child: const Text('Start')),
-            ElevatedButton(
-                onPressed: startTimer,
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.indigo),
-                  padding: MaterialStateProperty.all<EdgeInsets>(
-                    const EdgeInsets.symmetric(
-                        horizontal: 35.0,
-                        vertical: 15.0), // Adjust the padding values here
-                  ),
-                ),
-                child: const Text('Timer')),
-            Text('Timer: $timerSeconds seconds'),
             ElevatedButton(
                 onPressed: () {
                   restart();
@@ -203,23 +194,46 @@ class _TP5State extends State<TP5> {
                 ),
                 child: const Text('Restart')),
           ]),
-          const SizedBox(height: 30),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => level2()));
-              },
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.indigo),
-                padding: MaterialStateProperty.all<EdgeInsets>(
-                  const EdgeInsets.symmetric(
-                      horizontal: 35.0,
-                      vertical: 15.0), // Adjust the padding values here
-                ),
+          const SizedBox(height: 40),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                   const SizedBox(height: 20),
+                  ElevatedButton(
+                      onPressed: startTimer,
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.indigo),
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                          const EdgeInsets.symmetric(
+                              horizontal: 35.0,
+                              vertical: 15.0), // Adjust the padding values here
+                        ),
+                      ),
+                      child: const Text('Timer')),
+                       Text('$timerSeconds seconds'),
+                ],
               ),
-              child: const Text('Go to Level 2')),
-          const SizedBox(height: 70)
+             
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Level2()));
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.indigo),
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.symmetric(
+                          horizontal: 35.0,
+                          vertical: 15.0), // Adjust the padding values here
+                    ),
+                  ),
+                  child: const Text('Go to Level 2')),
+            ],
+          ),
+          const SizedBox(height: 50)
         ]));
   }
 }
